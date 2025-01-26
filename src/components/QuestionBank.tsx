@@ -83,46 +83,30 @@ const QuestionBank = () => {
                           </AccordionTrigger>
                           <AccordionContent>
                             <ScrollArea className="h-full px-4">
-                              {subtopic.subtopics ? (
-                                <Accordion type="single" collapsible className="w-full">
-                                  {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
-                                    <AccordionItem value={typeKey} key={typeKey}>
-                                      <AccordionTrigger>
-                                        <h5 className="text-sm md:text-base font-medium">{type.name}</h5>
-                                      </AccordionTrigger>
-                                      <AccordionContent>
-                                        <div className="space-y-2 px-4">
-                                          {type.questions.map((question, index) => (
-                                            <Card
-                                              key={index}
-                                              className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
-                                            >
-                                              <p className="text-sm text-muted-foreground">
-                                                Question {index + 1}
-                                              </p>
-                                              <p className="mt-1 text-sm md:text-base">{question}</p>
-                                            </Card>
-                                          ))}
-                                        </div>
-                                      </AccordionContent>
-                                    </AccordionItem>
-                                  ))}
-                                </Accordion>
-                              ) : (
-                                <div className="space-y-2 px-4">
-                                  {subtopic.questions?.map((question, index) => (
-                                    <Card
-                                      key={index}
-                                      className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
-                                    >
-                                      <p className="text-sm text-muted-foreground">
-                                        Question {index + 1}
-                                      </p>
-                                      <p className="mt-1 text-sm md:text-base">{question}</p>
-                                    </Card>
-                                  ))}
-                                </div>
-                              )}
+                              <Accordion type="single" collapsible className="w-full">
+                                {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
+                                  <AccordionItem value={typeKey} key={typeKey}>
+                                    <AccordionTrigger>
+                                      <h5 className="text-sm md:text-base font-medium">{type.name}</h5>
+                                    </AccordionTrigger>
+                                    <AccordionContent>
+                                      <div className="space-y-2 px-4">
+                                        {type.questions.map((question, index) => (
+                                          <Card
+                                            key={index}
+                                            className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
+                                          >
+                                            <p className="text-sm text-muted-foreground">
+                                              Question {index + 1}
+                                            </p>
+                                            <p className="mt-1 text-sm md:text-base">{question}</p>
+                                          </Card>
+                                        ))}
+                                      </div>
+                                    </AccordionContent>
+                                  </AccordionItem>
+                                ))}
+                              </Accordion>
                             </ScrollArea>
                           </AccordionContent>
                         </AccordionItem>
