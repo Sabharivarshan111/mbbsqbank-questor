@@ -16,11 +16,24 @@ const SAMPLE_DATA = {
     subtopics: {
       "general-pharmacology": {
         name: "General Pharmacology",
-        questions: [
-          "What is pharmacokinetics?",
-          "Define bioavailability and its significance.",
-          "Explain the different routes of drug administration.",
-        ],
+        subtopics: {
+          essay: {
+            name: "Essay",
+            questions: [
+              "Describe the process of drug absorption and factors affecting it.",
+              "Explain the concept of drug biotransformation with examples.",
+              "Discuss the various phases of clinical trials in detail."
+            ]
+          },
+          "short-note": {
+            name: "Short Note",
+            questions: [
+              "Write a short note on first-pass metabolism.",
+              "Briefly explain the concept of drug half-life.",
+              "Describe the importance of therapeutic index."
+            ]
+          }
+        }
       },
     },
   },
@@ -41,7 +54,6 @@ const QuestionBank = () => {
   const handlers = useSwipeable({
     onSwipedLeft: () => console.log("Swiped left - can be used for next topic"),
     onSwipedRight: () => console.log("Swiped right - can be used for previous topic"),
-    preventDefaultTouchmoveEvent: true,
     trackMouse: true
   });
 
@@ -70,19 +82,48 @@ const QuestionBank = () => {
                             <h4 className="text-base md:text-lg font-medium">{subtopic.name}</h4>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-2 px-4">
-                              {subtopic.questions.map((question, index) => (
-                                <Card
-                                  key={index}
-                                  className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
-                                >
-                                  <p className="text-sm text-muted-foreground">
-                                    Question {index + 1}
-                                  </p>
-                                  <p className="mt-1 text-sm md:text-base">{question}</p>
-                                </Card>
-                              ))}
-                            </div>
+                            <ScrollArea className="h-full px-4">
+                              {subtopic.subtopics ? (
+                                <Accordion type="single" collapsible className="w-full">
+                                  {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
+                                    <AccordionItem value={typeKey} key={typeKey}>
+                                      <AccordionTrigger>
+                                        <h5 className="text-sm md:text-base font-medium">{type.name}</h5>
+                                      </AccordionTrigger>
+                                      <AccordionContent>
+                                        <div className="space-y-2 px-4">
+                                          {type.questions.map((question, index) => (
+                                            <Card
+                                              key={index}
+                                              className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
+                                            >
+                                              <p className="text-sm text-muted-foreground">
+                                                Question {index + 1}
+                                              </p>
+                                              <p className="mt-1 text-sm md:text-base">{question}</p>
+                                            </Card>
+                                          ))}
+                                        </div>
+                                      </AccordionContent>
+                                    </AccordionItem>
+                                  ))}
+                                </Accordion>
+                              ) : (
+                                <div className="space-y-2 px-4">
+                                  {subtopic.questions?.map((question, index) => (
+                                    <Card
+                                      key={index}
+                                      className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
+                                    >
+                                      <p className="text-sm text-muted-foreground">
+                                        Question {index + 1}
+                                      </p>
+                                      <p className="mt-1 text-sm md:text-base">{question}</p>
+                                    </Card>
+                                  ))}
+                                </div>
+                              )}
+                            </ScrollArea>
                           </AccordionContent>
                         </AccordionItem>
                       ))}
