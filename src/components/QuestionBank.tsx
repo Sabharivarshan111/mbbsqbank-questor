@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Book } from "lucide-react";
 import {
   Accordion,
@@ -7,6 +7,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useEffect, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 
 const SAMPLE_DATA = {
   pharmacology: {
@@ -25,11 +27,29 @@ const SAMPLE_DATA = {
 };
 
 const QuestionBank = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => console.log("Swiped left - can be used for next topic"),
+    onSwipedRight: () => console.log("Swiped right - can be used for previous topic"),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
   return (
     <div className="flex min-h-screen bg-background">
-      <div className="flex-1 space-y-4 p-4 pt-6">
+      <div className="flex-1 space-y-4 p-4 pt-6 max-w-3xl mx-auto" {...handlers}>
         <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">MBBS Question Bank</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">MBBS Question Bank</h2>
         </div>
         <div className="grid gap-4">
           <Accordion type="single" collapsible className="w-full">
@@ -38,7 +58,7 @@ const QuestionBank = () => {
                 <AccordionTrigger className="px-4">
                   <div className="flex items-center space-x-2">
                     <Book className="h-5 w-5 text-primary" />
-                    <h3 className="text-xl font-semibold">{topic.name}</h3>
+                    <h3 className="text-lg md:text-xl font-semibold">{topic.name}</h3>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -47,20 +67,20 @@ const QuestionBank = () => {
                       {Object.entries(topic.subtopics).map(([subtopicKey, subtopic]) => (
                         <AccordionItem value={subtopicKey} key={subtopicKey}>
                           <AccordionTrigger>
-                            <h4 className="text-lg font-medium">{subtopic.name}</h4>
+                            <h4 className="text-base md:text-lg font-medium">{subtopic.name}</h4>
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 px-4">
                               {subtopic.questions.map((question, index) => (
-                                <div
+                                <Card
                                   key={index}
-                                  className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm"
+                                  className="p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-98 transform"
                                 >
                                   <p className="text-sm text-muted-foreground">
                                     Question {index + 1}
                                   </p>
-                                  <p className="mt-1">{question}</p>
-                                </div>
+                                  <p className="mt-1 text-sm md:text-base">{question}</p>
+                                </Card>
                               ))}
                             </div>
                           </AccordionContent>
