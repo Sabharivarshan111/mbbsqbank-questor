@@ -20,9 +20,9 @@ const SAMPLE_DATA = {
           essay: {
             name: "Essay",
             questions: [
-              "Describe the process of drug absorption and factors affecting it.",
-              "Explain the concept of drug biotransformation with examples.",
-              "Discuss the various phases of clinical trials in detail."
+              "Biotransformation ** (Aug 14;Feb 10)\nDiscuss:\n- Biotransformation Reactions, Phase I and Phase II reaction with suitable examples\n- Importance of Enzyme Induction and Enzyme Inhibition\n- Microsomal Enzyme Induction and Inhibition with examples\n\nProbable Case:\nA 35 year old woman taking combined oral contraceptive pills was diagnosed with tuberculosis and put on isoniazid, rifampicin, pyrazinamide, and ethambutol combination therapy for 2 months followed by isoniazid and rifampicin thrice weekly for 4 months. In the 3rd month of treatment, she failed to have withdrawal bleeding during the gap period of contraceptive cycle. One week later her urinary pregnancy test was found to be positive.",
+              "Factors Modifying Drug Action ** (Aug 15;Aug 10)\nDiscuss:\n- Definition of Drug and Dose\n- Various Factors Modifying a Drug's Actions\n- Note about Pharmacogenetics",
+              "Routes of Drug Administration (Apr 01)\nExplain:\n- Each Route of Administration\n- Examples\n- Advantages and Disadvantages"
             ]
           },
           "short-note": {
