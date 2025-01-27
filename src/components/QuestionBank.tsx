@@ -72,8 +72,49 @@ const SAMPLE_DATA = {
           }
         }
       },
-    },
-  },
+      "autonomic-nervous-system": {
+        name: "Autonomic Nervous System",
+        subtopics: {
+          essay: {
+            name: "Essay",
+            questions: [
+              "Beta-Blockers ******* (Feb 23;Aug 16;Feb 12;Feb 07;Aug 04;Mar 02;Oct 00) (Pg.No: 157)\nDiscuss:\n- Classification, Pharmacological Effects, Uses, Adverse Effects\n- Drug receptor, Enumerate Beta Blockers, Adverse effects and Contraindications of Non Cardio Selective Beta Blockers\n- Mechanism of action of Proponalol, Pharmacological Action of Proponalol, Therapeutic uses of Proponalol\n- Therapeutic uses, Advantages of cardio Selective Beta Blockers\n- Role of Beta Blockers in Thyrotoxicosis",
+              "Adrenaline ***** (Feb 13;Feb 11;Feb 09;Aug 05;Feb 05) (Pg.No: 136)\nDiscuss:\n- Classification of Sympathomimetics, Cardiovascular Action, Therapeutic Uses, Adverse Effects\n- Mechanism of Action, Contraindications",
+              "Atropine ** (Aug 09;Aug 07) (Pg.No: 124)\nExplain:\n- Classification of Anti-Cholinergic drugs, Therapeutic Action, Adverse Effects, Contraindications, Managements of Atropine Poisoning\n- Atropine Derivatives and Their Uses",
+              "Anti-Cholinersterases (Aug 13;Aug 11) (Pg.No: 116)\nDiscuss:\n- Mechanism of Action, Indication of Reversible Anti-Cholinersterases, Management of Acute Organophosphorus Poisoning",
+              "Muscarinic Receptor Blockers (Oct 00) (Pg.No: 124)\nExplain:\n- Natural and Synthetic drugs, Action on Eye and Smooth Muscles with Indications, Systemic Adverse Effects",
+              "Organo Phosphorus Compound poisoning (Feb 21) (Pg.No: 122)\nDiscuss:\n- Antidote, Receptor antagonism with suitable diagrams, Cholinergic crisis in Myasthenia Gravis"
+            ]
+          },
+          "short-note": {
+            name: "Short Note",
+            questions: [
+              "Beta-Blockers ****** (Aug 22;Sep 21;Aug 12;Aug 09;Feb 09;Aug 08;Mar 02;Jan 93) (Pg.No: 160)\n- Therapeutic uses, Contraindications\n- Indications, Contraindications, Extra-Cardiac Uses\n- Adverse Effects",
+              "Anti-Glaucoma Drugs ***** (Aug 18;Aug 16;Aug 13;Feb 11;Feb 09) (Pg.No: 153)",
+              "Management of Organo Phosphorus Poisoning ***** (Feb 23;Dec 19;Feb 17;Feb 15;Aug 10;Aug 08) (Pg.No: 122)\n- Cholinesterase Reactivators",
+              "Alpha Adrenergic Blockers **** (Aug 18;Aug 16;Feb 12;Aug 10;Feb 09;Oct 02) (Pg.No: 153)\n- Therapeutic Uses",
+              "Drugs for Glaucoma **** (Feb 10;Feb 05;Oct 02;Oct 96) (Pg.No: 165)",
+              "Timolol *** (Feb 18;Aug 09;Dec 90) (Pg.No: 167)\n- Rationale for use in the treatment of Glaucoma",
+              "Atropine ** (Jul 23;Feb 14) (Pg.No: 124)\n- Pharmacological action, Uses, Substitutes",
+              "Dopamine in Cardiogenic Shock ** (Feb 10;Aug 09) (Pg.No: 146)",
+              "Drugs used in Open Angle Glaucoma ** (Aug 22;Aug 19) (Pg.No: 166)",
+              "Therapeutic uses of Adrenergic Drugs ** (Mar 22;Feb 14) (Pg.No: 150)",
+              "Adrenaline (Aug 17) (Pg.No: 136)",
+              "Beta Stimulants (Nov 95) (Pg.No: 149)",
+              "Cholinergic Crisis (Aug 14) (Pg.No: 121)",
+              "Clonidine (Aug 12;Aug 04) (Pg.No: 611)\n- Extravascular Uses",
+              "Labetalol (Feb 19) (Pg.No: 165)\n- Uses, Adverse Effects",
+              "Proponalol (Aug 04) (Pg.No: 157)",
+              "Therapeutic Uses of Atropine (Aug 06) (Pg.No: 130)",
+              "Treatment for Benign Prostatic Hypertrophy (BPH) (Jul 23) (Pg.No: 157)\n- Preferred drugs, Rational in using them",
+              "Treatment of Myasthenia Gravis (Oct 03) (Pg.No: 120)",
+              "Uroselective Alpha Adrenergic Blockers (Aug 12) (Pg.No: 156)"
+            ]
+          }
+        }
+      }
+    }
+  }
 };
 
 const QuestionBank = () => {
@@ -108,7 +149,7 @@ const QuestionBank = () => {
               <AccordionItem 
                 value={topicKey} 
                 key={topicKey}
-                className="animate-fade-in"
+                className="animate-fade-in transition-all duration-300"
               >
                 <AccordionTrigger className="px-4 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-all duration-200">
                   <div className="flex items-center space-x-3">
@@ -123,7 +164,7 @@ const QuestionBank = () => {
                         <AccordionItem 
                           value={subtopicKey} 
                           key={subtopicKey}
-                          className="animate-fade-in"
+                          className="animate-fade-in transition-all duration-300"
                         >
                           <AccordionTrigger className="hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg px-4">
                             <div className="flex items-center space-x-3">
@@ -138,25 +179,30 @@ const QuestionBank = () => {
                                   <AccordionItem 
                                     value={typeKey} 
                                     key={typeKey}
-                                    className="animate-fade-in"
+                                    className="animate-fade-in transition-all duration-300"
                                   >
                                     <AccordionTrigger className="hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg px-4">
                                       <div className="flex items-center space-x-3">
                                         <FileText className="h-4 w-4 text-indigo-500 dark:text-indigo-300" />
-                                        <h5 className="text-base md:text-lg font-medium">{type.name}</h5>
+                                        <h5 className="text-lg font-medium">{type.name}</h5>
                                       </div>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                      <div className="space-y-3 px-4">
+                                      <div className="space-y-4 px-4">
                                         {type.questions.map((question, index) => (
                                           <Card
                                             key={index}
-                                            className="p-4 hover:shadow-lg transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-blue-100 dark:border-blue-900"
+                                            className="p-4 hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-blue-100 dark:border-blue-900 group"
                                           >
-                                            <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-2">
-                                              Question {index + 1}
-                                            </p>
-                                            <p className="mt-1 text-sm md:text-base whitespace-pre-wrap">
+                                            <div className="flex items-start justify-between">
+                                              <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                                                Question {index + 1}
+                                              </p>
+                                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                {question.match(/\(Pg\.No: \d+\)/)?.[0] || ""}
+                                              </span>
+                                            </div>
+                                            <p className="mt-1 text-sm md:text-base whitespace-pre-wrap leading-relaxed">
                                               {question}
                                             </p>
                                           </Card>
