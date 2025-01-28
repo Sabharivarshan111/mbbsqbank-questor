@@ -1,27 +1,23 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Book, BookOpen, FileText } from "lucide-react";
 import {
   Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import QuestionCard from "./QuestionCard";
 import { QUESTION_BANK_DATA } from "@/data/questionBankData";
+import TopicAccordion from "./TopicAccordion";
 
-interface Question {
+export interface Question {
   question: string;
   index: number;
 }
 
-interface SubTopicContent {
+export interface SubTopicContent {
   name: string;
   questions: string[];
 }
 
-interface SubTopic {
+export interface SubTopic {
   name: string;
   subtopics?: {
     [key: string]: SubTopicContent;
@@ -29,7 +25,7 @@ interface SubTopic {
   questions?: string[];
 }
 
-interface Topic {
+export interface Topic {
   name: string;
   subtopics: {
     [key: string]: SubTopic;
@@ -65,81 +61,11 @@ const QuestionBank = () => {
         <div className="grid gap-4">
           <Accordion type="single" collapsible className="w-full">
             {Object.entries(QUESTION_BANK_DATA).map(([topicKey, topic]) => (
-              <AccordionItem 
-                value={topicKey} 
+              <TopicAccordion 
                 key={topicKey}
-                className="animate-fade-in transition-all duration-300"
-              >
-                <AccordionTrigger className="px-4 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-all duration-200">
-                  <div className="flex items-center space-x-3">
-                    <Book className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                    <h3 className="text-xl md:text-2xl font-semibold">{topic.name}</h3>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ScrollArea className="h-full px-4">
-                    <Accordion type="single" collapsible className="w-full">
-                      {Object.entries(topic.subtopics).map(([subtopicKey, subtopic]) => (
-                        <AccordionItem 
-                          value={subtopicKey} 
-                          key={subtopicKey}
-                          className="animate-fade-in transition-all duration-300"
-                        >
-                          <AccordionTrigger className="hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg px-4">
-                            <div className="flex items-center space-x-3">
-                              <BookOpen className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                              <h4 className="text-lg md:text-xl font-medium">{subtopic.name}</h4>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent>
-                            <ScrollArea className="h-full px-4">
-                              {subtopic.subtopics ? (
-                                <Accordion type="single" collapsible className="w-full">
-                                  {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
-                                    <AccordionItem 
-                                      value={typeKey} 
-                                      key={typeKey}
-                                      className="animate-fade-in transition-all duration-300"
-                                    >
-                                      <AccordionTrigger className="hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg px-4">
-                                        <div className="flex items-center space-x-3">
-                                          <FileText className="h-4 w-4 text-indigo-500 dark:text-indigo-300" />
-                                          <h5 className="text-lg font-medium">{type.name}</h5>
-                                        </div>
-                                      </AccordionTrigger>
-                                      <AccordionContent>
-                                        <div className="space-y-4 px-4">
-                                          {type.questions.map((question, index) => (
-                                            <QuestionCard
-                                              key={index}
-                                              question={question}
-                                              index={index}
-                                            />
-                                          ))}
-                                        </div>
-                                      </AccordionContent>
-                                    </AccordionItem>
-                                  ))}
-                                </Accordion>
-                              ) : subtopic.questions ? (
-                                <div className="space-y-4">
-                                  {subtopic.questions.map((question, index) => (
-                                    <QuestionCard
-                                      key={index}
-                                      question={question}
-                                      index={index}
-                                    />
-                                  ))}
-                                </div>
-                              ) : null}
-                            </ScrollArea>
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </ScrollArea>
-                </AccordionContent>
-              </AccordionItem>
+                topicKey={topicKey}
+                topic={topic}
+              />
             ))}
           </Accordion>
         </div>
