@@ -1,7 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Accordion,
-} from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { QUESTION_BANK_DATA } from "@/data/questionBankData";
@@ -64,7 +62,7 @@ const QuestionBank = () => {
               <TopicAccordion 
                 key={paperKey}
                 topicKey={paperKey}
-                topic={paper}
+                topic={paper as Topic}
               />
             ))}
           </Accordion>

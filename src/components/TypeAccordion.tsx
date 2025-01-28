@@ -13,6 +13,11 @@ interface TypeAccordionProps {
 }
 
 const TypeAccordion = ({ typeKey, type }: TypeAccordionProps) => {
+  if (!type || !type.questions) {
+    console.log("No questions found for type:", typeKey);
+    return null;
+  }
+
   return (
     <AccordionItem 
       value={typeKey}

@@ -16,6 +16,11 @@ interface SubtopicAccordionProps {
 }
 
 const SubtopicAccordion = ({ subtopicKey, subtopic }: SubtopicAccordionProps) => {
+  if (!subtopic) {
+    console.log("No subtopic found for key:", subtopicKey);
+    return null;
+  }
+
   return (
     <AccordionItem 
       value={subtopicKey}
