@@ -1,7 +1,6 @@
 export const respiratorySystemData = {
   name: "Respiratory System",
-  subtopics: {
-    essay: {
+  subt: {
       name: "Essay",
       questions: [
         "Drugs used in Bronchial Asthma ** (Aug 11;Feb 07) (Pg.No: 241)\n- Mechanism of Action, Uses, Adverse Effects, Classification",
