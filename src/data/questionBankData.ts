@@ -10,11 +10,11 @@ export const QUESTION_BANK_DATA = {
     name: "Pharmacology",
     subtopics: {
       "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
-      "autonomic-nervous-system": autonomicNervousSystemData.subtopics,
-      "central-nervous-system": centralNervousSystemData.subtopics,
-      "cardiovascular-system": cardiovascularSystemData.subtopics,
-      "respiratory-system": respiratorySystemData.subtopics,
-      "autacoids": autacoidsData.subtopics
+      "autonomic-nervous-system": autonomicNervousSystemData,
+      "central-nervous-system": centralNervousSystemData,
+      "cardiovascular-system": cardiovascularSystemData,
+      "respiratory-system": respiratorySystemData,
+      "autacoids": autacoidsData
     }
   }
 };
