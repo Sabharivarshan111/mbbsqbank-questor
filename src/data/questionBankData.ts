@@ -9,13 +9,12 @@ export const QUESTION_BANK_DATA = {
   pharmacology: {
     name: "Pharmacology",
     subtopics: {
-      essay: pharmacologyData.subtopics.essay,
-      "short-note": pharmacologyData.subtopics["short-note"],
-      "autonomic-nervous-system": autonomicNervousSystemData,
-      "central-nervous-system": centralNervousSystemData,
-      "cardiovascular-system": cardiovascularSystemData,
-      "respiratory-system": respiratorySystemData,
-      "autacoids": autacoidsData
+      "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
+      "autonomic-nervous-system": autonomicNervousSystemData.subtopics,
+      "central-nervous-system": centralNervousSystemData.subtopics,
+      "cardiovascular-system": cardiovascularSystemData.subtopics,
+      "respiratory-system": respiratorySystemData.subtopics,
+      "autacoids": autacoidsData.subtopics
     }
   }
 };
