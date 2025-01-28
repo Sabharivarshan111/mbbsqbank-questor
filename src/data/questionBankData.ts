@@ -9,7 +9,8 @@ export const QUESTION_BANK_DATA = {
   pharmacology: {
     name: "Pharmacology",
     subtopics: {
-      "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
+      essay: pharmacologyData.subtopics.essay,
+      "short-note": pharmacologyData.subtopics["short-note"],
       "autonomic-nervous-system": autonomicNervousSystemData,
       "central-nervous-system": centralNervousSystemData,
       "cardiovascular-system": cardiovascularSystemData,
