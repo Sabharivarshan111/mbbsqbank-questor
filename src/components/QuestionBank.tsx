@@ -16,15 +16,17 @@ interface Question {
   index: number;
 }
 
+interface SubTopicContent {
+  name: string;
+  questions: string[];
+}
+
 interface SubTopic {
   name: string;
-  questions?: string[];
   subtopics?: {
-    [key: string]: {
-      name: string;
-      questions: string[];
-    };
+    [key: string]: SubTopicContent;
   };
+  questions?: string[];
 }
 
 interface Topic {
