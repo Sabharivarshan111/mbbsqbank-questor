@@ -11,6 +11,29 @@ import { useSwipeable } from "react-swipeable";
 import QuestionCard from "./QuestionCard";
 import { QUESTION_BANK_DATA } from "@/data/questionBankData";
 
+interface Question {
+  question: string;
+  index: number;
+}
+
+interface SubTopic {
+  name: string;
+  questions?: string[];
+  subtopics?: {
+    [key: string]: {
+      name: string;
+      questions: string[];
+    };
+  };
+}
+
+interface Topic {
+  name: string;
+  subtopics: {
+    [key: string]: SubTopic;
+  };
+}
+
 const QuestionBank = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -68,7 +91,7 @@ const QuestionBank = () => {
                           </AccordionTrigger>
                           <AccordionContent>
                             <ScrollArea className="h-full px-4">
-                              {subtopic.subtopics && (
+                              {subtopic.subtopics ? (
                                 <Accordion type="single" collapsible className="w-full">
                                   {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
                                     <AccordionItem 
@@ -96,10 +119,9 @@ const QuestionBank = () => {
                                     </AccordionItem>
                                   ))}
                                 </Accordion>
-                              )}
-                              {!subtopic.subtopics && subtopic.questions && (
+                              ) : (
                                 <div className="space-y-4">
-                                  {subtopic.questions.map((question, index) => (
+                                  {subtopic.questions?.map((question, index) => (
                                     <QuestionCard
                                       key={index}
                                       question={question}

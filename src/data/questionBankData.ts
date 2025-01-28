@@ -4,12 +4,14 @@ import { centralNervousSystemData } from './topics/centralNervousSystem';
 import { cardiovascularSystemData } from './topics/cardiovascularSystem';
 import { respiratorySystemData } from './topics/respiratorySystem';
 import { autacoidsData } from './topics/autacoids';
+import { peripheralNervousSystemData } from './topics/peripheralNervousSystem';
 
 export const QUESTION_BANK_DATA = {
   pharmacology: {
     name: "Pharmacology",
     subtopics: {
       "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
+      "peripheral-nervous-system": peripheralNervousSystemData,
       "autonomic-nervous-system": autonomicNervousSystemData,
       "central-nervous-system": centralNervousSystemData,
       "cardiovascular-system": cardiovascularSystemData,
