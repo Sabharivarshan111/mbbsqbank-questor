@@ -5,18 +5,30 @@ import { cardiovascularSystemData } from './topics/cardiovascularSystem';
 import { respiratorySystemData } from './topics/respiratorySystem';
 import { autacoidsData } from './topics/autacoids';
 import { peripheralNervousSystemData } from './topics/peripheralNervousSystem';
+import { hormonesData } from './topics/hormones';
 
 export const QUESTION_BANK_DATA = {
-  pharmacology: {
-    name: "Pharmacology",
+  "paper-1": {
+    name: "Paper 1",
     subtopics: {
-      "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
-      "peripheral-nervous-system": peripheralNervousSystemData,
-      "autonomic-nervous-system": autonomicNervousSystemData,
-      "central-nervous-system": centralNervousSystemData,
-      "cardiovascular-system": cardiovascularSystemData,
-      "respiratory-system": respiratorySystemData,
-      "autacoids": autacoidsData
+      pharmacology: {
+        name: "Pharmacology",
+        subtopics: {
+          "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
+          "peripheral-nervous-system": peripheralNervousSystemData,
+          "autonomic-nervous-system": autonomicNervousSystemData,
+          "central-nervous-system": centralNervousSystemData,
+          "cardiovascular-system": cardiovascularSystemData,
+          "respiratory-system": respiratorySystemData,
+          "autacoids": autacoidsData
+        }
+      }
+    }
+  },
+  "paper-2": {
+    name: "Paper 2",
+    subtopics: {
+      hormones: hormonesData
     }
   }
 };

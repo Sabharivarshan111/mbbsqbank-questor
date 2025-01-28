@@ -60,11 +60,11 @@ const QuestionBank = () => {
         </div>
         <div className="grid gap-4">
           <Accordion type="single" collapsible className="w-full">
-            {Object.entries(QUESTION_BANK_DATA).map(([topicKey, topic]) => (
+            {Object.entries(QUESTION_BANK_DATA).map(([paperKey, paper]) => (
               <TopicAccordion 
-                key={topicKey}
-                topicKey={topicKey}
-                topic={topic}
+                key={paperKey}
+                topicKey={paperKey}
+                topic={paper}
               />
             ))}
           </Accordion>
