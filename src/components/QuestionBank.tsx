@@ -31,6 +31,7 @@ interface Topic {
 
 const QuestionBank = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [completedQuestions, setCompletedQuestions] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const checkMobile = () => {
@@ -46,6 +47,18 @@ const QuestionBank = () => {
     onSwipedRight: () => console.log("Swiped right - can be used for previous topic"),
     trackMouse: true
   });
+
+  const toggleQuestionCompletion = (questionId: string) => {
+    setCompletedQuestions(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(questionId)) {
+        newSet.delete(questionId);
+      } else {
+        newSet.add(questionId);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
@@ -89,9 +102,11 @@ const QuestionBank = () => {
                               <div className="space-y-4 px-4">
                                 {subtopic.questions.map((question, index) => (
                                   <QuestionCard
-                                    key={index}
+                                    key={`${topicKey}-${subtopicKey}-${index}`}
                                     question={question}
                                     index={index}
+                                    isCompleted={completedQuestions.has(`${topicKey}-${subtopicKey}-${index}`)}
+                                    onToggleCompletion={() => toggleQuestionCompletion(`${topicKey}-${subtopicKey}-${index}`)}
                                   />
                                 ))}
                               </div>
