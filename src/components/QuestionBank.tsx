@@ -121,9 +121,9 @@ const QuestionBank = () => {
                                     </AccordionItem>
                                   ))}
                                 </Accordion>
-                              ) : (
+                              ) : subtopic.questions ? (
                                 <div className="space-y-4">
-                                  {subtopic.questions?.map((question, index) => (
+                                  {subtopic.questions.map((question, index) => (
                                     <QuestionCard
                                       key={index}
                                       question={question}
@@ -131,7 +131,7 @@ const QuestionBank = () => {
                                     />
                                   ))}
                                 </div>
-                              )}
+                              ) : null}
                             </ScrollArea>
                           </AccordionContent>
                         </AccordionItem>
