@@ -7,6 +7,7 @@ import { autacoidsData } from './topics/autacoids';
 import { peripheralNervousSystemData } from './topics/peripheralNervousSystem';
 import { hormonesData } from './topics/hormones';
 import { gastrointestinalSystemData } from './topics/gastrointestinalSystem';
+import { antiMicrobialDrugsData } from './topics/antiMicrobialDrugs';
 
 export const QUESTION_BANK_DATA = {
   "pharmacology": {
@@ -28,7 +29,8 @@ export const QUESTION_BANK_DATA = {
         name: "Paper 2",
         subtopics: {
           "hormones": hormonesData,
-          "gastrointestinal-system": gastrointestinalSystemData
+          "gastrointestinal-system": gastrointestinalSystemData,
+          "anti-microbial-drugs": antiMicrobialDrugsData
         }
       }
     }
