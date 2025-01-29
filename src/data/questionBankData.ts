@@ -8,11 +8,11 @@ import { peripheralNervousSystemData } from './topics/peripheralNervousSystem';
 import { hormonesData } from './topics/hormones';
 
 export const QUESTION_BANK_DATA = {
-  "paper-1": {
-    name: "Paper 1",
+  "pharmacology": {
+    name: "Pharmacology",
     subtopics: {
-      pharmacology: {
-        name: "Pharmacology",
+      "paper-1": {
+        name: "Paper 1",
         subtopics: {
           "general-pharmacology": pharmacologyData.subtopics["general-pharmacology"],
           "peripheral-nervous-system": peripheralNervousSystemData,
@@ -22,13 +22,13 @@ export const QUESTION_BANK_DATA = {
           "respiratory-system": respiratorySystemData,
           "autacoids": autacoidsData
         }
+      },
+      "paper-2": {
+        name: "Paper 2",
+        subtopics: {
+          "hormones": hormonesData
+        }
       }
-    }
-  },
-  "paper-2": {
-    name: "Paper 2",
-    subtopics: {
-      hormones: hormonesData
     }
   }
 };
