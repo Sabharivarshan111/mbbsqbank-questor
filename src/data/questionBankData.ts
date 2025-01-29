@@ -6,6 +6,7 @@ import { respiratorySystemData } from './topics/respiratorySystem';
 import { autacoidsData } from './topics/autacoids';
 import { peripheralNervousSystemData } from './topics/peripheralNervousSystem';
 import { hormonesData } from './topics/hormones';
+import { gastrointestinalSystemData } from './topics/gastrointestinalSystem';
 
 export const QUESTION_BANK_DATA = {
   "pharmacology": {
@@ -26,7 +27,8 @@ export const QUESTION_BANK_DATA = {
       "paper-2": {
         name: "Paper 2",
         subtopics: {
-          "hormones": hormonesData
+          "hormones": hormonesData,
+          "gastrointestinal-system": gastrointestinalSystemData
         }
       }
     }

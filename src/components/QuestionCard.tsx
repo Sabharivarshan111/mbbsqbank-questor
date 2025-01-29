@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Question } from "./QuestionBank";
 
 interface QuestionCardProps {
@@ -8,7 +10,7 @@ interface QuestionCardProps {
 }
 
 const QuestionCard = ({ question, index }: QuestionCardProps) => {
-  // Extract page numbers from the question text
+  const [isCompleted, setIsCompleted] = useState(false);
   const pageNumberMatch = question.match(/\(Pg\.No: ([^)]+)\)/);
   const pageNumbers = pageNumberMatch ? pageNumberMatch[1] : "";
 
@@ -17,9 +19,11 @@ const QuestionCard = ({ question, index }: QuestionCardProps) => {
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 mt-1">
-            <div className="h-5 w-5 rounded-full border border-indigo-500 flex items-center justify-center">
-              <Check className="h-3 w-3 text-indigo-500" />
-            </div>
+            <Checkbox
+              checked={isCompleted}
+              onCheckedChange={(checked) => setIsCompleted(checked as boolean)}
+              className="h-5 w-5"
+            />
           </div>
           <div className="flex-1">
             <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
