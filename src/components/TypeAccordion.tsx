@@ -13,6 +13,8 @@ interface TypeAccordionProps {
 }
 
 const TypeAccordion = ({ typeKey, type }: TypeAccordionProps) => {
+  console.log("TypeAccordion rendering with type:", type); // Debug log
+
   return (
     <AccordionItem 
       value={typeKey}
@@ -26,13 +28,17 @@ const TypeAccordion = ({ typeKey, type }: TypeAccordionProps) => {
       </AccordionTrigger>
       <AccordionContent>
         <div className="space-y-4 px-4">
-          {type.questions.map((question, index) => (
-            <QuestionCard
-              key={index}
-              question={question}
-              index={index}
-            />
-          ))}
+          {type.questions && type.questions.length > 0 ? (
+            type.questions.map((question, index) => (
+              <QuestionCard
+                key={index}
+                question={question}
+                index={index}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500 dark:text-gray-400">No questions available</p>
+          )}
         </div>
       </AccordionContent>
     </AccordionItem>
