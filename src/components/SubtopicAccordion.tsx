@@ -16,6 +16,8 @@ interface SubtopicAccordionProps {
 }
 
 const SubtopicAccordion = ({ subtopicKey, subtopic }: SubtopicAccordionProps) => {
+  console.log("SubtopicAccordion rendering with subtopic:", subtopic); // Debug log
+
   return (
     <AccordionItem 
       value={subtopicKey}
