@@ -11,6 +11,8 @@ interface AIChatWindowProps {
   question: string;
 }
 
+const OPENAI_API_KEY = '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';
+
 const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +25,7 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+          'Authorization': `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
           model: 'gpt-4',
@@ -42,7 +44,13 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
         })
       });
 
+      if (!response.ok) {
+        throw new Error('Failed to get AI response');
+      }
+
       const data = await response.json();
+      console.log('AI Response:', data); // Debug log
+      
       if (data.choices && data.choices[0]) {
         setResponse(data.choices[0].message.content);
       }
