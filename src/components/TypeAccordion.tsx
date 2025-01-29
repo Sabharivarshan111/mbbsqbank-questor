@@ -28,17 +28,20 @@ const TypeAccordion = ({ typeKey, type }: TypeAccordionProps) => {
       </AccordionTrigger>
       <AccordionContent>
         <div className="space-y-4 px-4">
-          {type.questions && type.questions.length > 0 ? (
-            type.questions.map((question, index) => (
-              <QuestionCard
-                key={index}
-                question={question}
-                index={index}
-              />
-            ))
-          ) : (
-            <p className="text-gray-500 dark:text-gray-400">No questions available</p>
-          )}
+          {Object.entries(type.subtopics).map(([questionTypeKey, questionType]) => (
+            <div key={questionTypeKey}>
+              <h6 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                {questionType.name}
+              </h6>
+              {questionType.questions.map((question, index) => (
+                <QuestionCard
+                  key={index}
+                  question={question}
+                  index={index}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       </AccordionContent>
     </AccordionItem>

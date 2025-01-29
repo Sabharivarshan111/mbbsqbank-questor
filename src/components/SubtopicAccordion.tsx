@@ -7,7 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import TypeAccordion from "./TypeAccordion";
-import QuestionCard from "./QuestionCard";
 import { SubTopic } from "./QuestionBank";
 
 interface SubtopicAccordionProps {
@@ -31,27 +30,15 @@ const SubtopicAccordion = ({ subtopicKey, subtopic }: SubtopicAccordionProps) =>
       </AccordionTrigger>
       <AccordionContent>
         <ScrollArea className="h-full px-4">
-          {subtopic.subtopics ? (
-            <Accordion type="single" collapsible className="w-full">
-              {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
-                <TypeAccordion 
-                  key={typeKey}
-                  typeKey={typeKey}
-                  type={type}
-                />
-              ))}
-            </Accordion>
-          ) : subtopic.questions ? (
-            <div className="space-y-4">
-              {subtopic.questions.map((question, index) => (
-                <QuestionCard
-                  key={index}
-                  question={question}
-                  index={index}
-                />
-              ))}
-            </div>
-          ) : null}
+          <Accordion type="single" collapsible className="w-full">
+            {Object.entries(subtopic.subtopics).map(([typeKey, type]) => (
+              <TypeAccordion 
+                key={typeKey}
+                typeKey={typeKey}
+                type={type}
+              />
+            ))}
+          </Accordion>
         </ScrollArea>
       </AccordionContent>
     </AccordionItem>
