@@ -10,17 +10,23 @@ export interface Question {
   index: number;
 }
 
-export interface SubTopicContent {
+export interface QuestionType {
   name: string;
   questions: string[];
 }
 
+export interface SubTopicContent {
+  name: string;
+  subtopics: {
+    [key: string]: QuestionType;
+  };
+}
+
 export interface SubTopic {
   name: string;
-  subtopics?: {
+  subtopics: {
     [key: string]: SubTopicContent;
   };
-  questions?: string[];
 }
 
 export interface Topic {
@@ -48,6 +54,8 @@ const QuestionBank = () => {
     trackMouse: true
   });
 
+  console.log("QuestionBank data:", QUESTION_BANK_DATA);
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
       <div className="flex-1 space-y-4 p-4 pt-6 max-w-4xl mx-auto" {...handlers}>
@@ -58,11 +66,11 @@ const QuestionBank = () => {
         </div>
         <div className="grid gap-4">
           <Accordion type="single" collapsible className="w-full">
-            {Object.entries(QUESTION_BANK_DATA).map(([paperKey, paper]) => (
+            {Object.entries(QUESTION_BANK_DATA).map(([topicKey, topic]) => (
               <TopicAccordion 
-                key={paperKey}
-                topicKey={paperKey}
-                topic={paper as Topic}
+                key={topicKey}
+                topicKey={topicKey}
+                topic={topic as Topic}
               />
             ))}
           </Accordion>
