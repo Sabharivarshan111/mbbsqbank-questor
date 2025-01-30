@@ -5,19 +5,19 @@ import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
-
 interface AIChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
   question: string;
-  position?: { top: number; left: number };
 }
 
-const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps) => {
+// Initialize Supabase client
+const supabase = createClient(
+  'https://your-project-url.supabase.co',  // Replace with your Supabase project URL
+  'your-anon-key'  // Replace with your Supabase anon key
+);
+
+const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -25,18 +25,15 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
-      console.log('Sending question to Supabase Edge Function:', question);
-      
       const { data, error } = await supabase.functions.invoke('ai-chat', {
-        body: { question },
+        body: { question }
       });
 
-      if (error) {
-        throw error;
+      if (error) throw error;
+      
+      if (data) {
+        setResponse(data.response);
       }
-
-      console.log('Edge Function response:', data);
-      setResponse(data.response);
     } catch (error) {
       console.error('Error fetching AI response:', error);
       toast({
@@ -51,16 +48,8 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
 
   if (!isOpen) return null;
 
-  const style = position ? {
-    position: 'absolute' as const,
-    top: `${position.top}px`,
-    left: `${position.left}px`,
-    zIndex: 50,
-    width: '24rem',
-  } : {};
-
   return (
-    <div style={style}>
+    <div className="fixed bottom-4 right-4 w-96 z-50">
       <Card className="p-4 shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">AI Assistant</h3>
