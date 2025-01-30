@@ -5,10 +5,15 @@ import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables');
+}
+
+const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '');
 
 interface AIChatWindowProps {
   isOpen: boolean;
@@ -32,11 +37,17 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
       });
 
       if (error) {
+        console.error('Supabase Edge Function error:', error);
         throw error;
       }
 
       console.log('Edge Function response:', data);
       setResponse(data.response);
+      
+      toast({
+        title: "Success",
+        description: "Got AI response successfully!",
+      });
     } catch (error) {
       console.error('Error fetching AI response:', error);
       toast({
