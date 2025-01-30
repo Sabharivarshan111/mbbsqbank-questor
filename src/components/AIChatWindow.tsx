@@ -3,6 +3,12 @@ import { X } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 interface AIChatWindowProps {
   isOpen: boolean;
@@ -19,41 +25,18 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
-      console.log('Sending question to OpenAI:', question);
+      console.log('Sending question to Supabase Edge Function:', question);
       
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a helpful medical education assistant. Provide clear, concise answers to medical questions.'
-            },
-            {
-              role: 'user',
-              content: `Please help me understand this topic: ${question}`
-            }
-          ],
-          temperature: 0.7,
-          max_tokens: 500
-        })
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: { question },
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to get response from AI');
+      if (error) {
+        throw error;
       }
 
-      const data = await response.json();
-      console.log('OpenAI response:', data);
-
-      if (data.choices && data.choices[0]) {
-        setResponse(data.choices[0].message.content);
-      }
+      console.log('Edge Function response:', data);
+      setResponse(data.response);
     } catch (error) {
       console.error('Error fetching AI response:', error);
       toast({
