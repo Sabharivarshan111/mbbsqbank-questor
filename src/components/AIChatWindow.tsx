@@ -9,9 +9,10 @@ interface AIChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
   question: string;
+  position?: { top: number; left: number };
 }
 
-const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
+const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps) => {
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -19,6 +20,7 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
+      // Replace with your secure API endpoint
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -64,8 +66,16 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
 
   if (!isOpen) return null;
 
+  const style = position ? {
+    position: 'absolute' as const,
+    top: `${position.top}px`,
+    left: `${position.left}px`,
+    zIndex: 50,
+    width: '24rem',
+  } : {};
+
   return (
-    <div className="fixed bottom-4 right-4 w-96 z-50">
+    <div style={style}>
       <Card className="p-4 shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">AI Assistant</h3>
