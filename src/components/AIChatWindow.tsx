@@ -23,7 +23,7 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+          'Authorization': `Bearer your_api_key_here` // We'll need to handle this securely
         },
         body: JSON.stringify({
           model: 'gpt-4',
@@ -41,6 +41,10 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
           max_tokens: 500
         })
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response from AI');
+      }
 
       const data = await response.json();
       if (data.choices && data.choices[0]) {
