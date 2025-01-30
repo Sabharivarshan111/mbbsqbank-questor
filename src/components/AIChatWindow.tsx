@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
 
 interface AIChatWindowProps {
@@ -20,15 +19,16 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
-      // Replace with your secure API endpoint
+      console.log('Sending question to OpenAI:', question);
+      
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer your_api_key_here` // We'll need to handle this securely
+          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-          model: 'gpt-4',
+          model: 'gpt-3.5-turbo',
           messages: [
             {
               role: 'system',
@@ -49,6 +49,8 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
       }
 
       const data = await response.json();
+      console.log('OpenAI response:', data);
+
       if (data.choices && data.choices[0]) {
         setResponse(data.choices[0].message.content);
       }
