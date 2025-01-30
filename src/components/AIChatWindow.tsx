@@ -2,27 +2,16 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
+import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '');
 
 interface AIChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
   question: string;
-  position?: { top: number; left: number };
 }
 
-const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps) => {
+const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -30,24 +19,33 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
-      console.log('Sending question to Supabase Edge Function:', question);
-      
-      const { data, error } = await supabase.functions.invoke('ai-chat', {
-        body: { question },
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a helpful medical education assistant. Provide clear, concise answers to medical questions.'
+            },
+            {
+              role: 'user',
+              content: `Please help me understand this topic: ${question}`
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
+        })
       });
 
-      if (error) {
-        console.error('Supabase Edge Function error:', error);
-        throw error;
+      const data = await response.json();
+      if (data.choices && data.choices[0]) {
+        setResponse(data.choices[0].message.content);
       }
-
-      console.log('Edge Function response:', data);
-      setResponse(data.response);
-      
-      toast({
-        title: "Success",
-        description: "Got AI response successfully!",
-      });
     } catch (error) {
       console.error('Error fetching AI response:', error);
       toast({
@@ -62,16 +60,8 @@ const AIChatWindow = ({ isOpen, onClose, question, position }: AIChatWindowProps
 
   if (!isOpen) return null;
 
-  const style = position ? {
-    position: 'absolute' as const,
-    top: `${position.top}px`,
-    left: `${position.left}px`,
-    zIndex: 50,
-    width: '24rem',
-  } : {};
-
   return (
-    <div style={style}>
+    <div className="fixed bottom-4 right-4 w-96 z-50">
       <Card className="p-4 shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">AI Assistant</h3>
