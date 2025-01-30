@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
+import { createClient } from '@supabase/supabase-js';
 
 interface AIChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
   question: string;
 }
+
+// Initialize Supabase client
+const supabase = createClient(
+  'https://your-project-url.supabase.co',  // Replace with your Supabase project URL
+  'your-anon-key'  // Replace with your Supabase anon key
+);
 
 const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const [response, setResponse] = useState<string>('');
@@ -19,32 +25,14 @@ const AIChatWindow = ({ isOpen, onClose, question }: AIChatWindowProps) => {
   const handleAskQuestion = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a helpful medical education assistant. Provide clear, concise answers to medical questions.'
-            },
-            {
-              role: 'user',
-              content: `Please help me understand this topic: ${question}`
-            }
-          ],
-          temperature: 0.7,
-          max_tokens: 500
-        })
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: { question }
       });
 
-      const data = await response.json();
-      if (data.choices && data.choices[0]) {
-        setResponse(data.choices[0].message.content);
+      if (error) throw error;
+      
+      if (data) {
+        setResponse(data.response);
       }
     } catch (error) {
       console.error('Error fetching AI response:', error);
